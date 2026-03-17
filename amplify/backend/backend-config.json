@@ -1,0 +1,129 @@
+{
+  "api": {
+    "apib3e2cc07": {
+      "dependsOn": [
+        {
+          "attributes": [
+            "Name",
+            "Arn"
+          ],
+          "category": "function",
+          "resourceName": "testawstest3e0fef54"
+        }
+      ],
+      "providerPlugin": "awscloudformation",
+      "service": "API Gateway"
+    }
+  },
+  "auth": {
+    "testawstest809a2d71": {
+      "customAuth": false,
+      "dependsOn": [],
+      "frontendAuthConfig": {
+        "mfaConfiguration": "OFF",
+        "mfaTypes": [
+          "SMS"
+        ],
+        "passwordProtectionSettings": {
+          "passwordPolicyCharacters": [],
+          "passwordPolicyMinLength": 8
+        },
+        "signupAttributes": [
+          "EMAIL"
+        ],
+        "socialProviders": [],
+        "usernameAttributes": [],
+        "verificationMechanisms": [
+          "EMAIL"
+        ]
+      },
+      "providerPlugin": "awscloudformation",
+      "service": "Cognito"
+    }
+  },
+  "function": {
+    "S3Trigger9b532e1e": {
+      "build": true,
+      "providerPlugin": "awscloudformation",
+      "service": "Lambda"
+    },
+    "testawstest3e0fef54": {
+      "build": true,
+      "providerPlugin": "awscloudformation",
+      "service": "Lambda"
+    },
+    "testawstest5977da46": {
+      "build": true,
+      "dependsOn": [],
+      "providerPlugin": "awscloudformation",
+      "service": "Lambda"
+    }
+  },
+  "parameters": {
+    "AMPLIFY_function_S3Trigger9b532e1e_deploymentBucketName": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "S3Trigger9b532e1e"
+        }
+      ]
+    },
+    "AMPLIFY_function_S3Trigger9b532e1e_s3Key": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "S3Trigger9b532e1e"
+        }
+      ]
+    },
+    "AMPLIFY_function_testawstest3e0fef54_deploymentBucketName": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "testawstest3e0fef54"
+        }
+      ]
+    },
+    "AMPLIFY_function_testawstest3e0fef54_s3Key": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "testawstest3e0fef54"
+        }
+      ]
+    },
+    "AMPLIFY_function_testawstest5977da46_deploymentBucketName": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "testawstest5977da46"
+        }
+      ]
+    },
+    "AMPLIFY_function_testawstest5977da46_s3Key": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "testawstest5977da46"
+        }
+      ]
+    }
+  },
+  "storage": {
+    "s3f8d6e00e": {
+      "dependsOn": [
+        {
+          "attributes": [
+            "Name",
+            "Arn",
+            "LambdaExecutionRole"
+          ],
+          "category": "function",
+          "resourceName": "S3Trigger9b532e1e"
+        }
+      ],
+      "providerPlugin": "awscloudformation",
+      "service": "S3"
+    }
+  }
+}

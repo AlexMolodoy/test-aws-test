@@ -1,0 +1,16 @@
+{
+  "resourceName": "s3f8d6e00e",
+  "policyUUID": "f8d6e00e",
+  "bucketName": "testawstest",
+  "storageAccess": "authAndGuest",
+  "guestAccess": [
+    "READ"
+  ],
+  "authAccess": [
+    "CREATE_AND_UPDATE",
+    "READ",
+    "DELETE"
+  ],
+  "triggerFunction": "S3Trigger9b532e1e",
+  "groupAccess": {}
+}

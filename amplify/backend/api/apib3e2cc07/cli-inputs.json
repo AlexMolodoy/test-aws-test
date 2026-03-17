@@ -1,0 +1,28 @@
+{
+  "version": 1,
+  "paths": {
+    "/items": {
+      "name": "/items",
+      "lambdaFunction": "testawstest3e0fef54",
+      "permissions": {
+        "setting": "protected",
+        "auth": [
+          "create",
+          "read",
+          "update",
+          "delete"
+        ],
+        "guest": [
+          "read"
+        ]
+      }
+    },
+    "/items/health": {
+      "name": "/items/health",
+      "lambdaFunction": "testawstest3e0fef54",
+      "permissions": {
+        "setting": "open"
+      }
+    }
+  }
+}
