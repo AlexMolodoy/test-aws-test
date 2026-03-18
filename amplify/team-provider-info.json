@@ -169,5 +169,79 @@
         "s3f8d6e00e": {}
       }
     }
+  },
+  "devt": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-testawstest-devt-8bbee-authRole",
+      "UnauthRoleArn": "arn:aws:iam::907244239785:role/amplify-testawstest-devt-8bbee-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::907244239785:role/amplify-testawstest-devt-8bbee-authRole",
+      "Region": "eu-central-1",
+      "DeploymentBucketName": "amplify-testawstest-devt-8bbee-deployment",
+      "UnauthRoleName": "amplify-testawstest-devt-8bbee-unauthRole",
+      "StackName": "amplify-testawstest-devt-8bbee",
+      "StackId": "arn:aws:cloudformation:eu-central-1:907244239785:stack/amplify-testawstest-devt-8bbee/441cecf0-22d9-11f1-8e04-06c5b109d74b",
+      "AmplifyAppId": "d21ak5ts7qhzo0"
+    },
+    "categories": {
+      "auth": {
+        "testawstest809a2d71": {}
+      },
+      "function": {
+        "S3Trigger9b532e1e": {},
+        "testawstest3e0fef54": {},
+        "testawstest5977da46": {}
+      }
+    }
+  },
+  "devu": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-testawstest-devu-d0772-authRole",
+      "UnauthRoleArn": "arn:aws:iam::907244239785:role/amplify-testawstest-devu-d0772-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::907244239785:role/amplify-testawstest-devu-d0772-authRole",
+      "Region": "eu-central-1",
+      "DeploymentBucketName": "amplify-testawstest-devu-d0772-deployment",
+      "UnauthRoleName": "amplify-testawstest-devu-d0772-unauthRole",
+      "StackName": "amplify-testawstest-devu-d0772",
+      "StackId": "arn:aws:cloudformation:eu-central-1:907244239785:stack/amplify-testawstest-devu-d0772/99586230-22d9-11f1-8e18-0aa3b7f5295f",
+      "AmplifyAppId": "d21ak5ts7qhzo0",
+      "APIGatewayAuthURL": "https://s3.amazonaws.com/amplify-testawstest-devu-d0772-deployment/amplify-cfn-templates/api/APIGatewayAuthStack.json"
+    },
+    "categories": {
+      "function": {
+        "S3Trigger9b532e1e": {
+          "deploymentBucketName": "amplify-testawstest-devu-d0772-deployment",
+          "s3Key": "amplify-builds/S3Trigger9b532e1e-496445506d50506c3078-build.zip"
+        },
+        "testawstest3e0fef54": {
+          "deploymentBucketName": "amplify-testawstest-devu-d0772-deployment",
+          "s3Key": "amplify-builds/testawstest3e0fef54-73733551554b6e556537-build.zip"
+        },
+        "testawstest5977da46": {
+          "deploymentBucketName": "amplify-testawstest-devu-d0772-deployment",
+          "s3Key": "amplify-builds/testawstest5977da46-69344d626a465238375a-build.zip"
+        }
+      },
+      "api": {
+        "apib3e2cc07": {}
+      },
+      "storage": {
+        "s3f8d6e00e": {}
+      },
+      "auth": {
+        "testawstest1351da7e": {
+          "userPoolId": "eu-central-1_vOtgGEGSY",
+          "userPoolName": "User pool - devt",
+          "webClientId": "70oklnj62ohp63d35eiqoglu32",
+          "nativeClientId": "17md25emmk7hkh2hpf7u1u1thg",
+          "identityPoolId": "eu-central-1:4c30e44a-bd98-469e-9385-30989c09aac9",
+          "identityPoolName": "CognitoRoleIdentityPoold-devt",
+          "allowUnauthenticatedIdentities": true,
+          "authRoleArn": "arn:aws:iam::907244239785:role/service-role/CognitoAuthRole",
+          "authRoleName": "CognitoAuthRole",
+          "unauthRoleArn": "arn:aws:iam::907244239785:role/service-role/CognitoUnAuthRole",
+          "unauthRoleName": "CognitoUnAuthRole"
+        }
+      }
+    }
   }
 }
