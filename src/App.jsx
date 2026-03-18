@@ -1,5 +1,7 @@
 import { useState, useEffect, useCallback } from 'react';
 import apiService from './apiService';
+import { Authenticator } from '@aws-amplify/ui-react';
+import '@aws-amplify/ui-react/styles.css';
 import './App.css';
 
 // ============================================
@@ -31,8 +33,8 @@ function StatsBar({ items, apiLogs }) {
   const categories = [...new Set(items.map((i) => i.category))];
   const successRate = apiLogs.length
     ? Math.round(
-        (apiLogs.filter((l) => l.status === 'ok').length / apiLogs.length) * 100
-      )
+      (apiLogs.filter((l) => l.status === 'ok').length / apiLogs.length) * 100
+    )
     : 100;
 
   return (
@@ -357,75 +359,90 @@ function App() {
 
   return (
     <div className="app">
-      <Toast toasts={toasts} onRemove={(id) => setToasts((p) => p.filter((t) => t.id !== id))} />
+      <Authenticator>
+        {({ signOut, user }) => (
+          <>
 
-      {/* Header */}
-      <header className="header">
-        <div className="header-badge">
-          <span className="pulse"></span>
-          REST API Dashboard
-        </div>
-        <h1>Items Manager</h1>
-        <p>Полноценный CRUD REST API на AWS Amplify + API Gateway + Lambda</p>
-      </header>
+            <Toast toasts={toasts} onRemove={(id) => setToasts((p) => p.filter((t) => t.id !== id))} />
 
-      {/* Stats */}
-      <StatsBar items={items} apiLogs={apiLogs} />
+            {/* Header */}
+            <header className="header">
+              <div className="header-badge">
+                <span className="pulse"></span>
+                REST API Dashboard
+              </div>
+              <h1>Items Manager</h1>
+              <p>Полноценный CRUD REST API на AWS Amplify + API Gateway + Lambda</p>
+              <div className="header-user">
+                <span className="header-username">{user?.signInDetails?.loginId}</span>
+                <button className="btn btn-secondary btn-sm" onClick={signOut}>
+                  Выйти
+                </button>
+              </div>
+            </header>
 
-      {/* Main content */}
-      <div className="main-layout">
-        {/* Form */}
-        <ItemForm
-          editingItem={editingItem}
-          onSubmit={handleSubmit}
-          onCancel={() => setEditingItem(null)}
-          loading={loading}
-        />
+            {/* Stats */}
+            <StatsBar items={items} apiLogs={apiLogs} />
 
-        {/* Items List */}
-        <div className="items-section">
-          <div className="section-header">
-            <h2 className="section-title">
-              <span className="icon">📋</span>
-              Элементы
-            </h2>
-            <div style={{ display: 'flex', gap: '0.5rem', alignItems: 'center' }}>
-              {loading && (
-                <span className="loading-spinner">
-                  <span className="spinner"></span>
-                </span>
-              )}
-              <span className="items-count">{items.length} шт.</span>
-              <button className="btn btn-secondary btn-sm" onClick={fetchItems} disabled={loading}>
-                🔄 Обновить
-              </button>
+            {/* Main content */}
+            <div className="main-layout">
+              {/* Form */}
+              <ItemForm
+                editingItem={editingItem}
+                onSubmit={handleSubmit}
+                onCancel={() => setEditingItem(null)}
+                loading={loading}
+              />
+
+              {/* Items List */}
+              <div className="items-section">
+                <div className="section-header">
+                  <h2 className="section-title">
+                    <span className="icon">📋</span>
+                    Элементы
+                  </h2>
+                  <div style={{ display: 'flex', gap: '0.5rem', alignItems: 'center' }}>
+                    {loading && (
+                      <span className="loading-spinner">
+                        <span className="spinner"></span>
+                      </span>
+                    )}
+                    <span className="items-count">{items.length} шт.</span>
+                    <button className="btn btn-secondary btn-sm" onClick={fetchItems} disabled={loading}>
+                      🔄 Обновить
+                    </button>
+                  </div>
+                </div>
+
+                {items.length === 0 ? (
+                  <div className="empty-state">
+                    <div className="icon">📭</div>
+                    <h3>Пока нет элементов</h3>
+                    <p>Создайте первый элемент используя форму слева</p>
+                  </div>
+                ) : (
+                  <div className="items-list">
+                    {items.map((item) => (
+                      <ItemCard
+                        key={item.id}
+                        item={item}
+                        onEdit={setEditingItem}
+                        onDelete={handleDelete}
+                        loading={loading}
+                      />
+                    ))}
+                  </div>
+                )}
+              </div>
             </div>
-          </div>
 
-          {items.length === 0 ? (
-            <div className="empty-state">
-              <div className="icon">📭</div>
-              <h3>Пока нет элементов</h3>
-              <p>Создайте первый элемент используя форму слева</p>
-            </div>
-          ) : (
-            <div className="items-list">
-              {items.map((item) => (
-                <ItemCard
-                  key={item.id}
-                  item={item}
-                  onEdit={setEditingItem}
-                  onDelete={handleDelete}
-                  loading={loading}
-                />
-              ))}
-            </div>
-          )}
-        </div>
-      </div>
+            {/* API Log */}
+            <ApiLog logs={apiLogs} onClear={() => setApiLogs([])} />
 
-      {/* API Log */}
-      <ApiLog logs={apiLogs} onClear={() => setApiLogs([])} />
+          </>
+        )}
+      </Authenticator>
+
     </div>
   );
 }

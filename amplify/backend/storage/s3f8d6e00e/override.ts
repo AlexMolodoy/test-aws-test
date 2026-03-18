@@ -1,76 +1,39 @@
 import { AmplifyS3ResourceTemplate } from '@aws-amplify/cli-extensibility-helper';
 
-export function override(resources: AmplifyS3ResourceTemplate, amplifyProjectInfo: { envName: string }) {
+export function override(resources: AmplifyS3ResourceTemplate, amplifyProjectInfo: { envName: string, appId: string }) {
 
     const env = amplifyProjectInfo.envName;
+    const amplifyAppId = amplifyProjectInfo.appId;
 
     if (!resources.s3Bucket) {
         throw new Error('s3Bucket is not defined');
     }
 
     // ============================================================
-    // Хелпер для создания ARN ресурсов
+    // Helper for building resource ARNs
     // ============================================================
     const bucketArn = { "Fn::GetAtt": ["S3Bucket", "Arn"] };
 
-    // Функция для создания ARN с путём
+    // Function to build an ARN with a path
     const makeResourceArn = (path: string) => ({
         "Fn::Join": ["", [bucketArn, path]]
     });
 
-    // ARN ролей (собираем из параметров authRoleName/unauthRoleName)
+    // Role ARNs (built from authRoleName/unauthRoleName parameters)
+    // For imported Cognito roles (e.g. devu), the role lives under /service-role/ path.
+    // Fn::Sub cannot embed a path, so we include it explicitly for those envs.
+    const cognitoServiceRoleEnvs = ['devu'];
+    const rolePath = cognitoServiceRoleEnvs.includes(env) ? 'service-role/' : '';
     const authRoleArn = {
-        "Fn::Sub": "arn:aws:iam::${AWS::AccountId}:role/${authRoleName}"
+        "Fn::Sub": `arn:aws:iam::$\{AWS::AccountId}:role/${rolePath}$\{authRoleName}`
     };
     const unauthRoleArn = {
-        "Fn::Sub": "arn:aws:iam::${AWS::AccountId}:role/${unauthRoleName}"
+        "Fn::Sub": `arn:aws:iam::$\{AWS::AccountId}:role/${rolePath}$\{unauthRoleName}`
     };
 
     // ============================================================
-    // Политика доступа к бакету (Bucket Policy)
+    // Bucket access policy (Bucket Policy)
     // ============================================================
-
-    // const bucketPolicy = {
-    //     "Version": "2012-10-17",
-    //     "Statement": [
-    //         {
-    //             "Sid": "PublicRead",
-    //             "Effect": "Allow",
-    //             "Principal": "*",
-    //             "Action": "s3:GetObject",
-    //             "Resource": "arn:aws:s3:::jaznu-qa/public/*"
-    //         },
-    //         {
-    //             "Sid": "ProtectedRead",
-    //             "Effect": "Allow",
-    //             "Principal": "*",
-    //             "Action": "s3:GetObject",
-    //             "Resource": "arn:aws:s3:::jaznu-qa/protected/*"
-    //         },
-    //         {
-    //             "Sid": "FullAccessForAuthRole",
-    //             "Effect": "Allow",
-    //             "Principal": {
-    //                 "AWS": "arn:aws:iam::675795832684:role/service-role/jaznu-qa-authRole"
-    //             },
-    //             "Action": [
-    //                 "s3:PutObject",
-    //                 "s3:GetObject",
-    //                 "s3:DeleteObject"
-    //             ],
-    //             "Resource": "arn:aws:s3:::jaznu-qa/*"
-    //         },
-    //         {
-    //             "Sid": "ListBucketForAuthRole",
-    //             "Effect": "Allow",
-    //             "Principal": {
-    //                 "AWS": "arn:aws:iam::675795832684:role/service-role/jaznu-qa-authRole"
-    //             },
-    //             "Action": "s3:ListBucket",
-    //             "Resource": "arn:aws:s3:::jaznu-qa"
-    //         }
-    //     ]
-    // }
 
     const bucketPolicy = {
         "Version": "2012-10-17",
@@ -126,7 +89,7 @@ export function override(resources: AmplifyS3ResourceTemplate, amplifyProjectInf
     );
 
     // ============================================================
-    // CORS конфигурация
+    // CORS configuration
     // ============================================================
     const corsConfiguration = {
         CorsRules: [
@@ -135,7 +98,7 @@ export function override(resources: AmplifyS3ResourceTemplate, amplifyProjectInf
                 "AllowedHeaders": ["*"],
                 "AllowedMethods": ["GET", "HEAD", "PUT", "POST", "DELETE"],
                 "AllowedOrigins": [
-                    `https://${env}.d1clyi8yzstog0.amplifyapp.com`,
+                    `https://${env}.${amplifyAppId}.amplifyapp.com`,
                     "http://localhost:5173"
                 ],
                 "ExposedHeaders": [
@@ -152,17 +115,17 @@ export function override(resources: AmplifyS3ResourceTemplate, amplifyProjectInf
     resources.s3Bucket.addPropertyOverride('CorsConfiguration', corsConfiguration);
 
     // ============================================================
-    // Отключаем Block Public Access для публичного чтения
+    // Disable Block Public Access to allow public reads
     // ============================================================
     resources.s3Bucket.addPropertyOverride('PublicAccessBlockConfiguration', {
         BlockPublicAcls: true,
         IgnorePublicAcls: true,
-        BlockPublicPolicy: false,  // Разрешаем публичные политики
-        RestrictPublicBuckets: false  // Разрешаем публичный доступ
+        BlockPublicPolicy: false,  // Allow public bucket policies
+        RestrictPublicBuckets: false  // Allow public access
     });
 
     // ============================================================
-    // IAM Policies (динамические Resource)
+    // IAM Policies (dynamic Resource ARNs)
     // ============================================================
 
     const publicPolicy = {
@@ -238,7 +201,7 @@ export function override(resources: AmplifyS3ResourceTemplate, amplifyProjectInf
     };
 
     // ============================================================
-    // Политики для неавторизованных пользователей (UnauthRole / Guest)
+    // Policies for unauthenticated users (UnauthRole / Guest)
     // ============================================================
 
     const guestPublicPolicy = {
@@ -288,7 +251,7 @@ export function override(resources: AmplifyS3ResourceTemplate, amplifyProjectInf
     };
 
     // ============================================================
-    // Применяем политики для авторизованных пользователей (AuthRole)
+    // Apply policies for authenticated users (AuthRole)
     // ============================================================
     if (resources.s3AuthPublicPolicy) {
         resources.s3AuthPublicPolicy.policyDocument = publicPolicy;
@@ -307,7 +270,7 @@ export function override(resources: AmplifyS3ResourceTemplate, amplifyProjectInf
     }
 
     // ============================================================
-    // Применяем политики для неавторизованных пользователей (UnauthRole)
+    // Apply policies for unauthenticated users (UnauthRole)
     // ============================================================
     if (resources.s3GuestPublicPolicy) {
         resources.s3GuestPublicPolicy.policyDocument = guestPublicPolicy;
