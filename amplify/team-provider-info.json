@@ -277,7 +277,8 @@
           "authRoleName": "CognitoAuthRole",
           "unauthRoleArn": "arn:aws:iam::907244239785:role/service-role/CognitoUnAuthRole",
           "unauthRoleName": "CognitoUnAuthRole"
-        }
+        },
+        "testawstest6905897f": {}
       }
     }
   },

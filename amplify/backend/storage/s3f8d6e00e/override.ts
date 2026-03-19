@@ -20,15 +20,63 @@ export function override(resources: AmplifyS3ResourceTemplate, amplifyProjectInf
     });
 
     // Role ARNs (built from authRoleName/unauthRoleName parameters)
-    // For imported Cognito roles (e.g. devu), the role lives under /service-role/ path.
-    // Fn::Sub cannot embed a path, so we include it explicitly for those envs.
-    const cognitoServiceRoleEnvs = ['devu'];
-    const rolePath = cognitoServiceRoleEnvs.includes(env) ? 'service-role/' : '';
+    // Amplify-managed roles: "amplify-{app}-{env}-{hash}-authRole" — path "/"
+    // Imported service roles: "CognitoAuthRole" etc.       — path "/service-role/"
+    //
+    // Detection via CloudFormation Condition (evaluated at deploy time):
+    //   Condition 1: element[0] after split by "-" == "amplify"  (prefix check)
+    //   Condition 2: element[4] after split by "-" != ""         (≥5 components check)
+    //
+    // Fn::Select returns "" for out-of-bounds on Fn::Split — safe to use as length probe.
+    //
+    // Examples:
+    //   "amplify-testawstest-devu-d0772-authRole" → [0]="amplify" ✓, [4]="authRole" ✓ → managed
+    //   "CognitoAuthRole"                         → [0]="CognitoAuthRole" ✗            → service-role
+    //   "amplify"                                 → [0]="amplify" ✓, [4]="" ✗          → service-role
+    //   "amplify-foo-bar"                         → [0]="amplify" ✓, [4]="" ✗          → service-role
+
+    const splitAuthRole = { "Fn::Split": ["-", { "Ref": "authRoleName" }] };
+    const splitUnauthRole = { "Fn::Split": ["-", { "Ref": "unauthRoleName" }] };
+
+    resources.addCfnCondition(
+        {
+            expression: {
+                "Fn::And": [
+                    // Condition 1: prefix "amplify"
+                    {
+                        "Fn::Equals": [
+                            { "Fn::Select": [0, splitAuthRole] },
+                            "amplify"
+                        ]
+                    },
+                    // Condition 2: at least 5 components (element[4] is not empty)
+                    {
+                        "Fn::Not": [{
+                            "Fn::Equals": [
+                                { "Fn::Select": [4, splitAuthRole] },
+                                ""
+                            ]
+                        }]
+                    }
+                ]
+            } as any
+        },
+        "IsAmplifyManagedRole"
+    );
+
     const authRoleArn = {
-        "Fn::Sub": `arn:aws:iam::$\{AWS::AccountId}:role/${rolePath}$\{authRoleName}`
+        "Fn::If": [
+            "IsAmplifyManagedRole",
+            { "Fn::Sub": "arn:aws:iam::${AWS::AccountId}:role/${authRoleName}" },
+            { "Fn::Sub": "arn:aws:iam::${AWS::AccountId}:role/service-role/${authRoleName}" }
+        ]
     };
     const unauthRoleArn = {
-        "Fn::Sub": `arn:aws:iam::$\{AWS::AccountId}:role/${rolePath}$\{unauthRoleName}`
+        "Fn::If": [
+            "IsAmplifyManagedRole",
+            { "Fn::Sub": "arn:aws:iam::${AWS::AccountId}:role/${unauthRoleName}" },
+            { "Fn::Sub": "arn:aws:iam::${AWS::AccountId}:role/service-role/${unauthRoleName}" }
+        ]
     };
 
     // ============================================================
