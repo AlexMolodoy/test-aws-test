@@ -23,39 +23,6 @@
       "service": "API Gateway"
     }
   },
-  "auth": {
-    "testawstest6905897f": {
-      "customAuth": false,
-      "dependsOn": [],
-      "frontendAuthConfig": {
-        "mfaConfiguration": "OFF",
-        "mfaTypes": [
-          "SMS"
-        ],
-        "passwordProtectionSettings": {
-          "passwordPolicyCharacters": [],
-          "passwordPolicyMinLength": 8
-        },
-        "signupAttributes": [
-          "EMAIL"
-        ],
-        "socialProviders": [],
-        "usernameAttributes": [],
-        "verificationMechanisms": [
-          "EMAIL"
-        ]
-      },
-      "providerPlugin": "awscloudformation",
-      "service": "Cognito"
-    },
-    "testawstest9f7e66ba": {
-      "customAuth": false,
-      "dependsOn": [],
-      "providerPlugin": "awscloudformation",
-      "service": "Cognito",
-      "serviceType": "imported"
-    }
-  },
   "function": {
     "S3Trigger9b532e1e": {
       "build": true,
@@ -75,94 +42,6 @@
     }
   },
   "parameters": {
-    "AMPLIFY_auth_testawstest9f7e66ba_allowUnauthenticatedIdentities": {
-      "usedBy": [
-        {
-          "category": "auth",
-          "resourceName": "testawstest9f7e66ba"
-        }
-      ]
-    },
-    "AMPLIFY_auth_testawstest9f7e66ba_authRoleArn": {
-      "usedBy": [
-        {
-          "category": "auth",
-          "resourceName": "testawstest9f7e66ba"
-        }
-      ]
-    },
-    "AMPLIFY_auth_testawstest9f7e66ba_authRoleName": {
-      "usedBy": [
-        {
-          "category": "auth",
-          "resourceName": "testawstest9f7e66ba"
-        }
-      ]
-    },
-    "AMPLIFY_auth_testawstest9f7e66ba_identityPoolId": {
-      "usedBy": [
-        {
-          "category": "auth",
-          "resourceName": "testawstest9f7e66ba"
-        }
-      ]
-    },
-    "AMPLIFY_auth_testawstest9f7e66ba_identityPoolName": {
-      "usedBy": [
-        {
-          "category": "auth",
-          "resourceName": "testawstest9f7e66ba"
-        }
-      ]
-    },
-    "AMPLIFY_auth_testawstest9f7e66ba_nativeClientId": {
-      "usedBy": [
-        {
-          "category": "auth",
-          "resourceName": "testawstest9f7e66ba"
-        }
-      ]
-    },
-    "AMPLIFY_auth_testawstest9f7e66ba_unauthRoleArn": {
-      "usedBy": [
-        {
-          "category": "auth",
-          "resourceName": "testawstest9f7e66ba"
-        }
-      ]
-    },
-    "AMPLIFY_auth_testawstest9f7e66ba_unauthRoleName": {
-      "usedBy": [
-        {
-          "category": "auth",
-          "resourceName": "testawstest9f7e66ba"
-        }
-      ]
-    },
-    "AMPLIFY_auth_testawstest9f7e66ba_userPoolId": {
-      "usedBy": [
-        {
-          "category": "auth",
-          "resourceName": "testawstest9f7e66ba"
-        }
-      ]
-    },
-    "AMPLIFY_auth_testawstest9f7e66ba_userPoolName": {
-      "usedBy": [
-        {
-          "category": "auth",
-          "resourceName": "testawstest9f7e66ba"
-        }
-      ]
-    },
-    "AMPLIFY_auth_testawstest9f7e66ba_webClientId": {
-      "usedBy": [
-        {
-          "category": "auth",
-          "resourceName": "testawstest9f7e66ba"
-        }
-      ]
-    },
     "AMPLIFY_function_S3Trigger9b532e1e_deploymentBucketName": {
       "usedBy": [
         {
