@@ -23,6 +23,13 @@
       "permissions": {
         "setting": "open"
       }
+    },
+    "/ping": {
+      "name": "/ping",
+      "lambdaFunction": "testawstest5977da46",
+      "permissions": {
+        "setting": "open"
+      }
     }
   }
 }

@@ -72,9 +72,6 @@
       "AmplifyAppId": "d21ak5ts7qhzo0"
     },
     "categories": {
-      "auth": {
-        "testawsteste7920078": {}
-      },
       "function": {
         "S3Trigger9b532e1e": {
           "deploymentBucketName": "amplify-testawstest-devw-c5c9e-deployment",
@@ -83,10 +80,26 @@
         "testawstest5977da46": {
           "deploymentBucketName": "amplify-testawstest-devw-c5c9e-deployment",
           "s3Key": "amplify-builds/testawstest5977da46-69344d626a465238375a-build.zip"
-        }
+        },
+        "testawstest3e0fef54": {}
       },
       "storage": {
         "s3e16e95f4": {}
+      },
+      "auth": {
+        "testawstest1351da7e": {
+          "userPoolId": "eu-central-1_tDZWzAVNo",
+          "userPoolName": "testawsteste7920078_userpool_e7920078-devw",
+          "webClientId": "785u4ip2pmhaljqff9ulik6uuo",
+          "nativeClientId": "64nfoj19paa2l001dt9sfjegln",
+          "identityPoolId": "eu-central-1:1cffa463-e1dc-4c19-bce1-d42858cb8dd8",
+          "identityPoolName": "testawsteste7920078_identitypool_e7920078__devw",
+          "allowUnauthenticatedIdentities": true,
+          "authRoleArn": "arn:aws:iam::907244239785:role/amplify-testawstest-devw-c5c9e-authRole",
+          "authRoleName": "amplify-testawstest-devw-c5c9e-authRole",
+          "unauthRoleArn": "arn:aws:iam::907244239785:role/amplify-testawstest-devw-c5c9e-unauthRole",
+          "unauthRoleName": "amplify-testawstest-devw-c5c9e-unauthRole"
+        }
       }
     }
   },
@@ -164,7 +177,7 @@
         "s3f8d6e00e": {}
       },
       "auth": {
-        "testawstest1351da7e": {
+        "testawstest809a2d72": {
           "userPoolId": "eu-central-1_vOtgGEGSY",
           "userPoolName": "User pool - devt",
           "webClientId": "70oklnj62ohp63d35eiqoglu32",
@@ -176,7 +189,8 @@
           "authRoleName": "CognitoAuthRole",
           "unauthRoleArn": "arn:aws:iam::907244239785:role/service-role/CognitoUnAuthRole",
           "unauthRoleName": "CognitoUnAuthRole"
-        }
+        },
+        "testawstestefe1d349": {}
       }
     }
   },
@@ -195,7 +209,6 @@
     },
     "categories": {
       "auth": {
-        "testawstest809a2d71": {},
         "testawstest1351da7e": {
           "userPoolId": "eu-central-1_vOtgGEGSY",
           "userPoolName": "User pool - devt",
@@ -265,6 +278,45 @@
           "unauthRoleArn": "arn:aws:iam::907244239785:role/service-role/CognitoUnAuthRole",
           "unauthRoleName": "CognitoUnAuthRole"
         }
+      }
+    }
+  },
+  "devi": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-testawstest-devi-0c187-authRole",
+      "UnauthRoleArn": "arn:aws:iam::907244239785:role/amplify-testawstest-devi-0c187-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::907244239785:role/amplify-testawstest-devi-0c187-authRole",
+      "Region": "eu-central-1",
+      "DeploymentBucketName": "amplify-testawstest-devi-0c187-deployment",
+      "UnauthRoleName": "amplify-testawstest-devi-0c187-unauthRole",
+      "StackName": "amplify-testawstest-devi-0c187",
+      "StackId": "arn:aws:cloudformation:eu-central-1:907244239785:stack/amplify-testawstest-devi-0c187/999fb440-23b1-11f1-8f35-0272665ca12f",
+      "AmplifyAppId": "d21ak5ts7qhzo0",
+      "APIGatewayAuthURL": "https://s3.amazonaws.com/amplify-testawstest-devi-0c187-deployment/amplify-cfn-templates/api/APIGatewayAuthStack.json"
+    },
+    "categories": {
+      "function": {
+        "S3Trigger9b532e1e": {
+          "deploymentBucketName": "amplify-testawstest-devi-0c187-deployment",
+          "s3Key": "amplify-builds/S3Trigger9b532e1e-496445506d50506c3078-build.zip"
+        },
+        "testawstest3e0fef54": {
+          "deploymentBucketName": "amplify-testawstest-devi-0c187-deployment",
+          "s3Key": "amplify-builds/testawstest3e0fef54-73733551554b6e556537-build.zip"
+        },
+        "testawstest5977da46": {
+          "deploymentBucketName": "amplify-testawstest-devi-0c187-deployment",
+          "s3Key": "amplify-builds/testawstest5977da46-69344d626a465238375a-build.zip"
+        }
+      },
+      "auth": {
+        "testawstest6905897f": {}
+      },
+      "api": {
+        "apib3e2cc07": {}
+      },
+      "storage": {
+        "s3f8d6e00e": {}
       }
     }
   }

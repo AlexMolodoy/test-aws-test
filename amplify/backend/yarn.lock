@@ -97,9 +97,9 @@
     graphql "^15.5.0"
 
 "@aws-cdk/asset-awscli-v1@^2.2.229":
-  version "2.2.269"
-  resolved "https://registry.yarnpkg.com/@aws-cdk/asset-awscli-v1/-/asset-awscli-v1-2.2.269.tgz#23600314b60df6764b442db742cc95515f26fecb"
-  integrity sha512-HtB6no09Uel4Rf9IJnVwjArE3pzUr9PW07j6koGzCp+gTy7KJwBbAtKH5N128JkyZl3h1aUbgrogeJyzXN+GZQ==
+  version "2.2.270"
+  resolved "https://registry.yarnpkg.com/@aws-cdk/asset-awscli-v1/-/asset-awscli-v1-2.2.270.tgz#2f19bccbdc42147d26bad78caf14f0f90ad5e91f"
+  integrity sha512-MzMI+rORpw8ckRmJSBAMehfaYblKnzqN86Ra2DiPUmNWBtNQt19R7mGWeg1PoXlo3GrAdNltNKU8A+Cwi/5PXQ==
 
 "@aws-cdk/asset-node-proxy-agent-v6@^2.1.0":
   version "2.1.1"
@@ -1115,9 +1115,9 @@ logform@^2.7.0:
     triple-beam "^1.3.0"
 
 lru-cache@^11.0.0:
-  version "11.2.6"
-  resolved "https://registry.yarnpkg.com/lru-cache/-/lru-cache-11.2.6.tgz#356bf8a29e88a7a2945507b31f6429a65a192c58"
-  integrity sha512-ESL2CrkS/2wTPfuend7Zhkzo2u0daGJ/A2VucJOgQ/C48S/zB8MMeMHSGKYpXhIjbPxfuezITkaBH1wqv00DDQ==
+  version "11.2.7"
+  resolved "https://registry.yarnpkg.com/lru-cache/-/lru-cache-11.2.7.tgz#9127402617f34cd6767b96daee98c28e74458d35"
+  integrity sha512-aY/R+aEsRelme17KGQa/1ZSIpLpNYYrhcrepKTZgE+W3WM16YMCaPwOHLHsmopZHELU0Ojin1lPVxKR0MihncA==
 
 lru-cache@^7.14.1:
   version "7.18.3"

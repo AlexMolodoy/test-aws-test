@@ -2,12 +2,12 @@
 
 :root {
   /* Color palette */
-  --bg-primary: #f0f2f5;
-  --bg-secondary: #e8eaf0;
+  --bg-primary: #edf7f0;
+  --bg-secondary: #ddf0e4;
   --bg-card: #ffffff;
-  --bg-card-hover: #f7f8fc;
-  --bg-input: #f4f5f9;
-  --bg-glass: rgba(255, 255, 255, 0.8);
+  --bg-card-hover: #f4fbf6;
+  --bg-input: #f0f9f3;
+  --bg-glass: rgba(237, 247, 240, 0.85);
 
   --text-primary: #1a1a2e;
   --text-secondary: #555577;
