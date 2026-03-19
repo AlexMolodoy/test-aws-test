@@ -265,7 +265,8 @@
         "s3f8d6e00e": {}
       },
       "auth": {
-        "testawstest6905897f": {
+        "testawstest6905897f": {},
+        "testawstest9f7e66ba": {
           "userPoolId": "eu-central-1_vOtgGEGSY",
           "userPoolName": "User pool - devt",
           "webClientId": "70oklnj62ohp63d35eiqoglu32",

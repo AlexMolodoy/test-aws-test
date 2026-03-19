@@ -6,17 +6,6 @@ export type AmplifyDependentResourcesAttributes = {
       "RootUrl": "string"
     }
   },
-  "auth": {
-    "testawstest6905897f": {
-      "AppClientID": "string",
-      "AppClientIDWeb": "string",
-      "IdentityPoolId": "string",
-      "IdentityPoolName": "string",
-      "UserPoolArn": "string",
-      "UserPoolId": "string",
-      "UserPoolName": "string"
-    }
-  },
   "function": {
     "S3Trigger9b532e1e": {
       "Arn": "string",
