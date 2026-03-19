@@ -35,26 +35,36 @@ export function override(resources: AmplifyS3ResourceTemplate, amplifyProjectInf
     //   "amplify"                                 → [0]="amplify" ✓, [4]="" ✗          → service-role
     //   "amplify-foo-bar"                         → [0]="amplify" ✓, [4]="" ✗          → service-role
 
-    const splitAuthRole = { "Fn::Split": ["-", { "Ref": "authRoleName" }] };
-    const splitUnauthRole = { "Fn::Split": ["-", { "Ref": "unauthRoleName" }] };
+    // Append sentinel "-X-X-X-X" so Fn::Select[4] is always safe:
+    //   - short names (e.g. "CognitoAuthRole") get "X" at index 4
+    //   - proper Amplify names (5+ parts) get the real element at index 4
+    // Condition: element[0]="amplify" AND element[4]≠"X"
+    //
+    // Examples after padding:
+    //   "amplify-testawstest-devu-d0772-authRole-X-X-X-X"
+    //     → [0]="amplify" ✓, [4]="authRole"≠"X" ✓ → managed
+    //   "CognitoAuthRole-X-X-X-X"
+    //     → [0]="CognitoAuthRole"≠"amplify" ✗ → service-role
+    //   "amplify-foo-bar-baz-X-X-X-X" (only 4 original parts)
+    //     → [0]="amplify" ✓, [4]="X" ✗ → service-role
+    const splitPaddedAuth = { "Fn::Split": ["-", { "Fn::Sub": "${authRoleName}-X-X-X-X" }] };
+    const splitPaddedUnauth = { "Fn::Split": ["-", { "Fn::Sub": "${unauthRoleName}-X-X-X-X" }] };
 
     resources.addCfnCondition(
         {
             expression: {
                 "Fn::And": [
-                    // Condition 1: prefix "amplify"
                     {
                         "Fn::Equals": [
-                            { "Fn::Select": [0, splitAuthRole] },
+                            { "Fn::Select": [0, splitPaddedAuth] },
                             "amplify"
                         ]
                     },
-                    // Condition 2: at least 5 components (element[4] is not empty)
                     {
                         "Fn::Not": [{
                             "Fn::Equals": [
-                                { "Fn::Select": [4, splitAuthRole] },
-                                ""
+                                { "Fn::Select": [4, splitPaddedAuth] },
+                                "X"
                             ]
                         }]
                     }
@@ -62,6 +72,30 @@ export function override(resources: AmplifyS3ResourceTemplate, amplifyProjectInf
             } as any
         },
         "IsAmplifyManagedRole"
+    );
+
+    resources.addCfnCondition(
+        {
+            expression: {
+                "Fn::And": [
+                    {
+                        "Fn::Equals": [
+                            { "Fn::Select": [0, splitPaddedUnauth] },
+                            "amplify"
+                        ]
+                    },
+                    {
+                        "Fn::Not": [{
+                            "Fn::Equals": [
+                                { "Fn::Select": [4, splitPaddedUnauth] },
+                                "X"
+                            ]
+                        }]
+                    }
+                ]
+            } as any
+        },
+        "IsAmplifyManagedRoleUnauth"
     );
 
     const authRoleArn = {
@@ -73,7 +107,7 @@ export function override(resources: AmplifyS3ResourceTemplate, amplifyProjectInf
     };
     const unauthRoleArn = {
         "Fn::If": [
-            "IsAmplifyManagedRole",
+            "IsAmplifyManagedRoleUnauth",
             { "Fn::Sub": "arn:aws:iam::${AWS::AccountId}:role/${unauthRoleName}" },
             { "Fn::Sub": "arn:aws:iam::${AWS::AccountId}:role/service-role/${unauthRoleName}" }
         ]
