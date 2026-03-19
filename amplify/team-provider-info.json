@@ -164,18 +164,18 @@
         "s3f8d6e00e": {}
       },
       "auth": {
-        "testawstestb7613ef0": {
-          "userPoolId": "eu-central-1_C7DHZcR4V",
-          "userPoolName": "testawstest809a2d71_userpool_809a2d71-devr",
-          "webClientId": "560jtlcdgcnv5dcir4pbmckq94",
-          "nativeClientId": "6t2e21d89n61up0mbq0rpolfid",
-          "identityPoolId": "eu-central-1:30971cdc-dbca-40a9-8352-0ddb8fbed32e",
-          "identityPoolName": "testawstest809a2d71_identitypool_809a2d71__devr",
+        "testawstestefe1d349": {
+          "userPoolId": "eu-central-1_vOtgGEGSY",
+          "userPoolName": "User pool - devt",
+          "webClientId": "70oklnj62ohp63d35eiqoglu32",
+          "nativeClientId": "17md25emmk7hkh2hpf7u1u1thg",
+          "identityPoolId": "eu-central-1:4c30e44a-bd98-469e-9385-30989c09aac9",
+          "identityPoolName": "CognitoRoleIdentityPoold-devt",
           "allowUnauthenticatedIdentities": true,
-          "authRoleArn": "arn:aws:iam::907244239785:role/amplify-testawstest-devr-d2fd5-authRole",
-          "authRoleName": "amplify-testawstest-devr-d2fd5-authRole",
-          "unauthRoleArn": "arn:aws:iam::907244239785:role/amplify-testawstest-devr-d2fd5-unauthRole",
-          "unauthRoleName": "amplify-testawstest-devr-d2fd5-unauthRole"
+          "authRoleArn": "arn:aws:iam::907244239785:role/service-role/CognitoAuthRole",
+          "authRoleName": "CognitoAuthRole",
+          "unauthRoleArn": "arn:aws:iam::907244239785:role/service-role/CognitoUnAuthRole",
+          "unauthRoleName": "CognitoUnAuthRole"
         }
       }
     }
