@@ -265,7 +265,7 @@
         "s3f8d6e00e": {}
       },
       "auth": {
-        "testawstest1351da7e": {
+        "testawstest6905897f": {
           "userPoolId": "eu-central-1_vOtgGEGSY",
           "userPoolName": "User pool - devt",
           "webClientId": "70oklnj62ohp63d35eiqoglu32",
@@ -277,8 +277,7 @@
           "authRoleName": "CognitoAuthRole",
           "unauthRoleArn": "arn:aws:iam::907244239785:role/service-role/CognitoUnAuthRole",
           "unauthRoleName": "CognitoUnAuthRole"
-        },
-        "testawstest6905897f": {}
+        }
       }
     }
   },
