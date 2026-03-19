@@ -9,6 +9,14 @@
           ],
           "category": "function",
           "resourceName": "testawstest3e0fef54"
+        },
+        {
+          "attributes": [
+            "Name",
+            "Arn"
+          ],
+          "category": "function",
+          "resourceName": "testawstest5977da46"
         }
       ],
       "providerPlugin": "awscloudformation",
